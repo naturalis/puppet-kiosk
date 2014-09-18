@@ -118,21 +118,6 @@ ensure_resource('file', '/etc/apt/sources.list.d',{
     content               => template("kiosk/.xinitrc.erb"),
     require               => [User['kiosk']]
   }
-# enable wake on lan
-  file { '/etc/init.d/wakeonlanconfig':
-    ensure                => present,
-    mode                  => '0755',
-    owner                 => 'kiosk',
-    content               => template("kiosk/wakeonlanconfig.erb"),
-    require               => [User['kiosk']],
-    notify                => Exec['update_wol']
-   }
-# Update wake on lanr
-  exec { 'update_wol':
-    command               => "/usr/sbin/update-rc.d -f wakeonlanconfig defaults && /etc/init.d/wakeonlanconfig",
-    refreshonly           => true,
-    require               => [File['/etc/init.d/wakeonlanconfig'], Package[$packages]]
- }
 # make userdirs
   file { $dirs:
     ensure                => 'directory',
