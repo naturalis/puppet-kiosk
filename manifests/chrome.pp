@@ -12,7 +12,7 @@
 #
 
 class kiosk::chrome(
-  $packages                             = ['xorg','openbox','squid3','build-essential','plymouth-theme-solar','ethtool'],
+  $packages                             = ['xorg','openbox','squid3','build-essential','plymouth-theme-solar'],
   $dirs                                 = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/google-chrome','/home/kiosk/.config/google-chrome/Default','/home/kiosk/.config/google-chrome/Default/Extensions','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
   $browser_path                         = "google-chrome --disable-translate --load-extension=/home/kiosk/.config/google-chrome/Default/Extensions/ --proxy-server=http://localhost:8080 --no-first-run --kiosk --allow-file-access-from-files http://www.naturalis.nl/nl/het-museum/agenda/",
   $homepage                             = "http://www.naturalis.nl/nl/het-museum/agenda/",
