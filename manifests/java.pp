@@ -122,7 +122,7 @@ class kiosk::java(
     mode                  => '755',
     owner                 => 'kiosk',
     group                 => 'kiosk',
-    require               => Common::Directory_structure["/data/kiosk/${applet_name}"],
+    require               => common::directory_structure["/data/kiosk/${applet_name}"],
     notify                => Exec['java-unzip']
   }
 # download protected images
@@ -132,7 +132,7 @@ class kiosk::java(
     mode                  => '755',
     owner                 => 'kiosk',
     group                 => 'kiosk',
-    require               => Common::Directory_structure["/data/kiosk/${applet_name}"],
+    require               => common::directory_structure["/data/kiosk/${applet_name}"],
     notify                => Exec['java-unzip-images']
   }
 # unzip java applet
@@ -143,7 +143,7 @@ class kiosk::java(
     group                 => 'kiosk',
     unless                => "/usr/bin/test -f /data/kiosk/${applet_name}/$interactive_name",
     refreshonly           => true,
-    require               => [ Common::Directory_structure["/data/kiosk/${applet_name}"], File["/data/kiosk/${applet_name}/${applet_name}.zip"] ],
+    require               => [ common::directory_structure["/data/kiosk/${applet_name}"], File["/data/kiosk/${applet_name}/${applet_name}.zip"] ],
     notify                => [ common::directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"] ],
   }
   common::directory_structure{ "/data/kiosk/${applet_name}/$platform/$images_path":
@@ -158,6 +158,6 @@ class kiosk::java(
     group                 => 'kiosk',
     unless                => "/usr/bin/test -f /data/kiosk/${applet_name}/$platform/$images_path",
     refreshonly           => true,
-    require               => [ Common::Directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"], File["/data/kiosk/${applet_name}/${applet_images}.zip"] ],
+    require               => [ common::directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"], File["/data/kiosk/${applet_name}/${applet_images}.zip"] ],
   }
 }
