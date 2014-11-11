@@ -111,7 +111,7 @@ class kiosk::java(
     }
   }
   }
-  common::directory_structure{ '/data/kiosk/${applet_name}':
+  common::directory_structure{ "/data/kiosk/${applet_name}":
     user                  => 'kiosk',
     mode                  => '0755'
   }
