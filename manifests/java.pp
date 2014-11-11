@@ -123,6 +123,7 @@ class kiosk::java(
     owner                 => 'kiosk',
     group                 => 'kiosk',
     require               => common::directory_structure["/data/kiosk/${applet_name}"],
+    unless                => "/usr/bin/test -f /data/kiosk/${applet_name}/${applet_name}.zip",
     notify                => Exec['java-unzip']
   }
 # download protected images
