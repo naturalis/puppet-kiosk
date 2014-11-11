@@ -116,7 +116,7 @@ class kiosk::java(
     mode                  => '0755'
   }
 # download java applet
-  file {"'/data/kiosk/${applet_name}/${applet_name}.zip":
+  file {"/data/kiosk/${applet_name}/${applet_name}.zip":
     source                => "puppet:///modules/kiosk/${applet_name}.zip",
     ensure                => 'present',
     mode                  => '755',
