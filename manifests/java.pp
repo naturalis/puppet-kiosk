@@ -112,12 +112,12 @@ class kiosk::java(
     }
   }
   }
-  common::directory_structure{ '/data/kiosk/${applet_name}':
+  common::directory_structure{ "/data/kiosk/${applet_name}":
     user                  => 'kiosk',
     mode                  => '0755'
   }
 # download java applet
-  file {"'/data/kiosk/${applet_name}/${applet_name}.zip":
+  file {"/data/kiosk/${applet_name}/${applet_name}.zip":
     source                => "puppet:///modules/kiosk/${applet_name}.zip",
     ensure                => 'present',
     mode                  => '755',
@@ -145,7 +145,7 @@ class kiosk::java(
     unless                => "/usr/bin/test -f /data/kiosk/${applet_name}/$interactive_name",
     refreshonly           => true,
     require               => [ Common::Directory_structure["/data/kiosk/${applet_name}"], File["/data/kiosk/${applet_name}/${applet_name}.zip"] ],
-    notify                => [ common::directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"] ],
+    notify                => [ Common::Directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"] ],
   }
   common::directory_structure{ "/data/kiosk/${applet_name}/$platform/$images_path":
     user                  => 'kiosk',
