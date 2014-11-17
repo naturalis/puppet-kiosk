@@ -27,6 +27,7 @@ class kiosk::chrome(
   $webpackages                          = ['apache2','php5','libapache2-mod-php5','p7zip-full'],
   $extractpassword                      = undef,
   $applet_name                          = undef,
+  $enable_remote                        = false,
 )
  { include stdlib
 # install packages
@@ -233,6 +234,14 @@ ensure_resource('file', '/etc/apt/sources.list.d',{
   }
   else {
     notify{"Apache disabled": }
+  }
+  
+  if ($enable_remote) {
+    ssh_authorized_key { 'remote@museumknop':
+      user => 'remote',
+      type => 'ssh-rsa',
+      key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJSHQMpjAhjdeOqg0NFF7jokYQ4eGWgoINo4Hl8MnW/77POYPOWtkPtJFjRb8MO8tswnipobd0jUr0eIXKKiSIQQzVgQx/gLh0RIfC+OIxOaWktL4n6obo351VykMQO2nevXNaticxbkPD4dwpk/YxeG69u+g90el+P1kwVOxvyqNgcDAvmqLr3nHkw8lTk9pVj4wuU5JYhXvhzPZephX/9+l+KpQ+Ogi3ua05VSoX4Mn1VYsauL7x8t0yC3voPfh2AcT75AWke1Ftdb7k46fPFOCdlZJ0QEH04XrOZwRIJbFpaeXihpn/yFu7Y/MNOa7/kGGWdcbXbUALm4QHb6zh',
+    }
   }
 
 }

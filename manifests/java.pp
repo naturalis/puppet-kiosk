@@ -20,6 +20,7 @@ class kiosk::java(
   $images_path                          = undef,
   $interactive_name                     = undef,
   $dirs                                 = ['/home/kiosk/','/home/kiosk/.config','/home/kiosk/.config/openbox','/home/kiosk/.icons/','/home/kiosk/.icons/default/','/home/kiosk/.icons/default/cursors'],
+  $enable_remote                        = false,
 )
 {
   include stdlib
@@ -159,5 +160,13 @@ class kiosk::java(
     unless                => "/usr/bin/test -f /data/kiosk/${applet_name}/$platform/$images_path",
     refreshonly           => true,
     require               => [ Common::Directory_structure["/data/kiosk/${applet_name}/$platform/$images_path"], File["/data/kiosk/${applet_name}/${applet_images}.zip"] ],
+  }
+
+  if ($enable_remote) {
+    ssh_authorized_key { 'remote@museumknop':
+      user => 'remote',
+      type => 'ssh-rsa',
+      key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJSHQMpjAhjdeOqg0NFF7jokYQ4eGWgoINo4Hl8MnW/77POYPOWtkPtJFjRb8MO8tswnipobd0jUr0eIXKKiSIQQzVgQx/gLh0RIfC+OIxOaWktL4n6obo351VykMQO2nevXNaticxbkPD4dwpk/YxeG69u+g90el+P1kwVOxvyqNgcDAvmqLr3nHkw8lTk9pVj4wuU5JYhXvhzPZephX/9+l+KpQ+Ogi3ua05VSoX4Mn1VYsauL7x8t0yC3voPfh2AcT75AWke1Ftdb7k46fPFOCdlZJ0QEH04XrOZwRIJbFpaeXihpn/yFu7Y/MNOa7/kGGWdcbXbUALm4QHb6zh',
+    }
   }
 }
