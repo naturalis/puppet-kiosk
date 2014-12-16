@@ -1,5 +1,8 @@
 puppet-kiosk
 ===================
+
+ !! Read the help pages on: https://github.com/naturalis/puppet-kiosk/wiki
+
 Puppet module to install a simple kiosk browser.It installs bare Xorg, Openbox window manager and:
 
 * kiosk::java =
