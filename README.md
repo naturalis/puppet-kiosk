@@ -1,4 +1,4 @@
-puppet-kiosk 
+puppet-kiosk
 ===================
 
  !! Read the help pages on: https://github.com/naturalis/puppet-kiosk/wiki
