@@ -92,8 +92,26 @@ class kiosk::chrome(
     content               => template("kiosk/emptycursor.erb"),
     require               => Exec["make_transparent"]
   }
-  
+# autostart openbox and disable screensaver/blanking + trans cursor
+  file { '/home/kiosk/.xinitrc':
+    ensure                => present,
+    mode                  => '0644',
+    owner                 => 'kiosk',
+    content               => template("kiosk/.xinitrc.erb"),
+    require               => [User['kiosk']]
   }
+ 
+  } else
+{
+# autostart openbox and disable screensaver/blanking - trans cursor
+  file { '/home/kiosk/.xinitrc':
+    ensure                => present,
+    mode                  => '0644',
+    owner                 => 'kiosk',
+    content               => template("kiosk/.xinitrc-2.erb"),
+    require               => [User['kiosk']]
+  }
+}
 # setup kiosk user
   user { "kiosk":
     comment               => "kiosk user",
@@ -114,14 +132,6 @@ class kiosk::chrome(
     ensure                => present,
     mode                  => '0644',
     content               => template("kiosk/tty1.conf.erb"),
-    require               => [User['kiosk']]
-  }
-# autostart openbox and disable screensaver/blanking
-  file { '/home/kiosk/.xinitrc':
-    ensure                => present,
-    mode                  => '0644',
-    owner                 => 'kiosk',
-    content               => template("kiosk/.xinitrc.erb"),
     require               => [User['kiosk']]
   }
 # make userdirs
