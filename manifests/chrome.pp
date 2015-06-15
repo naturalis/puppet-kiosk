@@ -29,6 +29,7 @@ class kiosk::chrome(
   $applet_name                          = undef,
   $enable_remote                        = false,
   $transparent_cursor                   = true,
+  $disable_keys                         = false,
 )
  { include stdlib
 # install packages
@@ -112,6 +113,18 @@ class kiosk::chrome(
     require               => [User['kiosk']]
   }
 }
+
+if ($disable_keys) {
+# disable special keys
+  file { '/home/kiosk/.xmodmaprc':
+    ensure                => present,
+    mode                  => '0644',
+    owner                 => 'kiosk',
+    content               => template("kiosk/.xmodmaprc.erb"),
+    require               => [User['kiosk']]
+  }
+}
+
 # setup kiosk user
   user { "kiosk":
     comment               => "kiosk user",
