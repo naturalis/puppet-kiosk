@@ -28,6 +28,7 @@ class kiosk::chrome(
   $extractpassword                      = undef,
   $applet_name                          = undef,
   $enable_remote                        = false,
+  $transparent_cursor                   = true,
 )
  { include stdlib
 # install packages
@@ -62,6 +63,8 @@ class kiosk::chrome(
     ensure                => latest,
     require               => [ Exec["apt-get update"]],
   }
+  if ($transparent_cursor ) {
+  
 # download and untar transparent cursor
   exec { 'download_transparent':
     command               => "/usr/bin/curl http://downloads.yoctoproject.org/releases/matchbox/utils/xcursor-transparent-theme-0.1.1.tar.gz -o /tmp/xcursor-transparent-theme-0.1.1.tar.gz && /bin/tar -xf /tmp/xcursor-transparent-theme-0.1.1.tar.gz -C /tmp",
@@ -88,6 +91,8 @@ class kiosk::chrome(
     mode                  => '0644',
     content               => template("kiosk/emptycursor.erb"),
     require               => Exec["make_transparent"]
+  }
+  
   }
 # setup kiosk user
   user { "kiosk":
