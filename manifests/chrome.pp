@@ -181,6 +181,14 @@ if ($disable_keys) {
     content               => template("kiosk/chrome-css.erb"),
     require               => [Package['google-chrome-stable'],File[$dirs]]
   }
+  file { '/home/kiosk/.config/google-chrome/Default/Extensions/Custom.js':
+    ensure                => present,
+    owner                 => 'kiosk',
+    group                 => 'kiosk',
+    mode                  => '0755',
+    content               => template("kiosk/chrome-js.erb"),
+    require               => [Package['google-chrome-stable'],File[$dirs]]
+  }
 # autostart chrome
   file { '/home/kiosk/.config/openbox/autostart.sh':
     ensure                => present,
