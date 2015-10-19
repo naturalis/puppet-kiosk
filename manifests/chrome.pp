@@ -30,6 +30,7 @@ class kiosk::chrome(
   $enable_remote                        = false,
   $transparent_cursor                   = true,
   $disable_keys                         = false,
+  $custom_css                           = undef,
 )
  { include stdlib
 # install packages
