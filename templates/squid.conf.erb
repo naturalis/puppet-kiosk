@@ -16,3 +16,8 @@ http_reply_access deny blacklist whitelist
 # cache_mem <%= @cache_mem %>
 # maximum_object_size <%= @cache_max_object_size %>
 # maximum_object_size_in_memory <%= @cache_maximum_object_size_in_memory %>
+
+acl SSL method CONNECT
+acl SSL_ports port 443
+acl Safe_ports port 80
+acl Safe_ports port 443
